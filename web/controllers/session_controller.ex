@@ -5,7 +5,7 @@ defmodule Rumbl.SessionController do
     render conn, "new.html"
   end
 
-  def create(conn, %{"sessions" => %{"username" => user, "password" => pass}}) do
+  def create(conn, %{"session" => %{"username" => user, "password" => pass}}) do
     case Rumbl.Auth.login_by_username_and_pass(conn, user, pass, repo: Repo) do
       {:ok, conn} ->
         conn
