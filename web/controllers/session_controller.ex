@@ -9,7 +9,7 @@ defmodule Rumbl.SessionController do
     case Rumbl.Auth.login_by_username_and_pass(conn, user, pass, repo: Repo) do
       {:ok, conn} ->
         conn
-        |> put_flash(:info, "Welcome back #{user.name}!")
+        |> put_flash(:info, "Welcome back!")
         |> redirect(to: page_path(conn, :index))
       {:error, _reason, conn} ->
         conn
