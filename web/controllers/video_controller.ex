@@ -2,6 +2,7 @@ defmodule Rumbl.VideoController do
   use Rumbl.Web, :controller
 
   alias Rumbl.Video
+  alias Rumbl.Category
 
   plug :scrub_params, "video" when action in [:create, :update]
   plug :load_categories when action in [:new, :create, :edit, :update]
@@ -85,7 +86,7 @@ defmodule Rumbl.VideoController do
       Category
       |> Category.alphabetical
       |> Category.names_and_ids
-    categories = Category.all query
+    categories = Repo.all query
     assign(conn, :categories, categories)
   end
 end
