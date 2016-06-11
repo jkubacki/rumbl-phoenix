@@ -43,6 +43,29 @@ defmodule Rumbl.VideoControllerTest do
     assert html_response(conn, 200) =~ "check the errors"
   end
 
+  @tag login_as: "max"
+  test "authorizes actions against access by other users", %{user: owner, conn: conn} do
+    video = insert_video(owner, @valid_attrs)
+    non_owner = insert_user(username: "sneaky")
+    conn = assign(conn, :current_user, non_owner)
+
+    assert_error_sent :not_found, fn ->
+      get(conn, video_path(conn, :show, video))
+    end
+
+    assert_error_sent :not_found, fn ->
+      get(conn, video_path(conn, :edit, video))
+    end
+
+    assert_error_sent :not_found, fn ->
+      put(conn, video_path(conn, :update, video, video: @valid_attrs))
+    end
+
+    assert_error_sent :not_found, fn ->
+      delete(conn, video_path(conn, :delete, video))
+    end
+  end
+
   test "requires user authentication on all actions", %{conn: conn} do
     Enum.each([
       get(conn, video_path(conn, :new)),
