@@ -28,7 +28,6 @@ let Video = {
       this.renderAnnotation(msgContainer, resp)
     })
 
-    vidChannel.on("ping", ({count}) => console.log("PING", count) )
     vidChannel.join()
       .receive("ok", resp => console.log("joined the video channel", resp) )
       .receive("error", reason => console.log("join failed", reason) )
