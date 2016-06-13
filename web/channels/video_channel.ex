@@ -8,7 +8,7 @@ defmodule Rumbl.VideoChannel do
 
     annotations = Rumbl.all(
       from a in assoc(video, :annotations),
-        order_by: [at: a.at, asc: a.id],
+        order_by: [asc: a.at, asc: a.id],
         limit: 200,
         preload: [:user]
     )
