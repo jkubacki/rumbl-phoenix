@@ -16,6 +16,13 @@ let Video = {
     let msgInput     = document.getElementById("msg-input")
     let postButton   = document.getElementById("msg-submit")
     let vidChannel   = socket.channel("videos:" + videoId)
+
+    postButton.addEventListener("cick", e => {
+      let payload = {body: msgInput.value, at: Player.getCurrentTime()}
+      vidChannel.push("new_annotation", payload)
+                .receive("error", e => console.log(e))
+      msgInput.value = ""
+    })
     vidChannel.on("ping", ({count}) => console.log("PING", count) )
     vidChannel.join()
       .receive("ok", resp => console.log("joined the video channel", resp) )
