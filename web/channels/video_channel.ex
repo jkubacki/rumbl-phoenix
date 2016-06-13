@@ -6,7 +6,7 @@ defmodule Rumbl.VideoChannel do
     video_id = String.to_integer(video_id)
     video = Repo.get!(Rumbl.Video, video_id)
 
-    annotations = Rumbl.all(
+    annotations = Repo.all(
       from a in assoc(video, :annotations),
         order_by: [asc: a.at, asc: a.id],
         limit: 200,
