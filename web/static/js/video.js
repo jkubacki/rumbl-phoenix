@@ -17,7 +17,7 @@ let Video = {
     let postButton   = document.getElementById("msg-submit")
     let vidChannel   = socket.channel("videos:" + videoId)
 
-    postButton.addEventListener("cick", e => {
+    postButton.addEventListener("click", e => {
       let payload = {body: msgInput.value, at: Player.getCurrentTime()}
       vidChannel.push("new_annotation", payload)
                 .receive("error", e => console.log(e))
