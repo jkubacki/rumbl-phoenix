@@ -9,7 +9,7 @@ defmodule Rumbl.InfoSys do
     backend.start_link(query, query_ref, owner, limit)
   end
 
-  def compute(query, opts || []) do
+  def compute(query, opts \\ []) do
     limit = opts[:limit] || 10
     backends = opts[:backends] || @backends
 
